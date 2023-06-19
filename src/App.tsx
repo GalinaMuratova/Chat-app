@@ -47,11 +47,7 @@ const App = () => {
     useEffect(() => {
         const interval = setInterval(getMessage, 3000);
         return () => clearInterval(interval);
-    }, []);
-
-    useEffect(() => {
-        getMessage();
-    }, []);
+    }, [dateTime]);
 
 
     return (
