@@ -1,8 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css'
 
 const App = () => {
-
+    const [author, setAuthor] = useState('');
+    const [message, setMessage] = useState('');
+    const [allInfo, setAllInfo] = useState<{ author: string; message: string; datetime: string; }[]>([]);
+    const [dateTime, setDateTime] = useState('');
 
     useEffect(() => {
         const interval = setInterval(() => {
