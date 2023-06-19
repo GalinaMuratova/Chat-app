@@ -1,9 +1,22 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css'
 
 const App = () => {
 
-  return (
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            console.log("hi");
+        }, 3000);
+        return () => clearInterval(interval);
+    }, []);
+
+    useEffect(() => {
+        console.log('fetch');
+    }, []);
+
+
+    return (
       <div className="container">
           <div className="container">
               <h1>Chat App</h1>
