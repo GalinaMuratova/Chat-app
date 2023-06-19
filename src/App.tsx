@@ -7,10 +7,27 @@ const App = () => {
     const [dateTime, setDateTime] = useState('');
     const [allInfo, setAllInfo] = useState<{ author: string; message: string; datetime: string; }[]>([]);
 
-
-    const sendMessage = (e:React.ChangeEvent<HTMLFormElement>) => {
+    const sendMessage = async (e:React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log('sent');
+        if (author && message) {
+            const data = new URLSearchParams();
+            data.append('author', author);
+            data.append('message', message);
+            try {
+                const response = await fetch('http://146.185.154.90:8000/messages', {
+                    method: 'POST',
+                    body: data,
+                });
+                if (response.ok) {
+                    setAuthor('');
+                    setMessage('');
+                } else {
+                    console.error('Failed to send message');
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
     };
 
     const getMessage = async () => {
@@ -21,7 +38,6 @@ const App = () => {
             if (data.length > 0) {
                 setAllInfo((prevState) => [...prevState, ...data]);
                 setDateTime(data[data.length - 1].datetime);
-                console.log(data);
             }
         } catch (e) {
             console.log(e)
